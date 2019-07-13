@@ -1,5 +1,7 @@
-# Authors: Matthijs Wolters & Pieter Barkema
-# Universiteit Utrecht
+# Authors: Pieter Barkema & Matthijs Wolters
+# Utrecht University
+
+## Analysis of optimal multitasking by comparing Monte Carlo simulation to real data
 
 # Working directory
 setwd("C:\\Users\\piete\\OneDrive\\Documenten\\Exp_Methode_Statistiek")
