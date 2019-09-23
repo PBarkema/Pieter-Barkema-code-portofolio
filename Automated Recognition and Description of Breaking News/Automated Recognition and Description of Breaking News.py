@@ -1,6 +1,6 @@
 """
     Author: Pieter Barkema
-    Title: Breaking news identification and rapportation
+    Title: Breaking news identification and description
     Functionality:
         Cluster the Echobox data set into events
         Preprocess the likely to be anomalous articles
