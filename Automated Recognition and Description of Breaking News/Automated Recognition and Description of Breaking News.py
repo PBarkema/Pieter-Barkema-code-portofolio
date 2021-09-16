@@ -23,8 +23,20 @@ from datetime import datetime
 import random
 realdir = path.dirname(path.realpath(__file__))
 
+# Load the data ANSI encoded
+data = pd.read_csv('20190710 - DS Challenge - Breaking News Articles Detection - DSChallengeArticleId.csv',encoding = 'ANSI')
 
-#%%
+# Threshold of 8 unique sources
+source_thres = 8
+# Threshold of 6 hours before and after
+time_thres = 32400
+# Model parameters for conservativity and minimum amount of samples for cluster creation
+conservativity_eps = 0.5
+min_samples = 8
+
+#  Returns the labeled data
+labeled_data = predict_news_labels(data, source_thres, time_thres, conservativity_eps, min_samples)  
+
 def predict_news_labels(data, source_thres, time_thres, conservativity_eps, min_samples):
     """ 
         Predict EventId based on the Echobox challenge data
@@ -89,21 +101,6 @@ def predict_news_labels(data, source_thres, time_thres, conservativity_eps, min_
     data.to_csv(result_path + ".csv", index=False, encoding = 'ANSI')
     return data
 
-# Load the data ANSI encoded
-data = pd.read_csv('20190710 - DS Challenge - Breaking News Articles Detection - DSChallengeArticleId.csv',encoding = 'ANSI')
-
-# threshold of 8 unique sources
-source_thres = 8
-# threshold of 6 hours before and after
-time_thres = 32400
-# Model parameters for conservativity and minimum amount of samples for cluster creation
-conservativity_eps = 0.5
-min_samples = 8
-
-#  returns the labeled data
-labeled_data = predict_news_labels(data, source_thres, time_thres, conservativity_eps, min_samples)  
-#%%
-
 def data_extract(data):
     """ 
         Extract relevant data from the clusters of articles to represent a breaking news article.
@@ -167,7 +164,6 @@ def data_extract(data):
     event_info = pd.DataFrame(event_info)
 
     return event_info
-#%%
 
 def postprocessing(labeled_data, source_thres, time_thres):
       """
@@ -196,8 +192,6 @@ def postprocessing(labeled_data, source_thres, time_thres):
       labeled_data['EventId'] = labeled_data['PredictedId']
       return labeled_data
        
-          
-#%%
       
 ###############################################
       # Only used for model selection of DBSCAN
